@@ -1,0 +1,447 @@
+---
+title: "Introductory R Hands-On Workshop"
+output:
+  html_notebook: default
+  pdf_document: default
+date: "08.23.2017"
+---
+# Part 1: Theory
+**Basic Operators**:
+-  assignment operators: (<-, =)
+
+- separation operators: (;,) eg. read.csv(file = 'test.csv' ,sep = ''); View(test.csv)
+
+- algebraic operators: (+,-,*,/) are used for mathematical operations eg. 5+7
+
+- TAB: Can be used to search functions and arguments eg. read.csv(TAB). Other than that NO semantic meaning e.g scope)
+
+## Assigning Values to Variables
+You can create a variable by **assigning** it a value with an assignment operator (<-, =):
+
+- In R the left side is left for the assignment
+
+- (<-) Is not commutative (2 <- a not allowed ;  a <- 2 == 2 -> a)
+
+- (=) Commutative ( a = 2; 2 = a  not allowed)
+
+### Character & Numeric (char & num)
+Let’s create a variable by assigning it a numerical value! 
+```{r}
+# Assign variable a the value 2. You can use for that the assignment operator (either <- or =)
+a <- 2
+a
+print(a) #same outcome
+```
+
+```{r}
+# Unlike other languages variables the dot (.) does not have any semantic meaning
+# This time we use the = operator
+a.1 = 3
+a.1
+```
+
+## Variables Types
+
+- character - Strings (categorical variables) eg. 'helloworld'
+
+- numeric - Integers and Fractions (any number) eg. 1 or 5.43
+
+- int - Integers (discrete value with a numerical component) eg. 0,1,2,3.
+
+- bool - Boolean (also known as logical) = TRUE or FALSE value 
+
+- factor - discrete value (categorical/ordinal variable - values of a category) eg. 'good', 'better', 'best','blue'
+
+- complex - Complex numbers (will not be handled today)
+
+- date - Date objects (will not be handled today)
+
+You can **check the variable type** with the **class()** and **str()** function:
+```{r}
+a <- 2
+a
+
+class(a) # states the objects class (type)
+str(a) # states the objects structure (type + object)
+```
+
+Look at the Environment section to see variables you’ve made and their current values. Change the value of a, then check again at the Environment section to see the updated value.
+```{r}
+a <- 3 + 5
+a
+```
+
+Let’s explore. Try this: 
+```{r}
+c <- '5'; d <- 'helloworld'
+c
+d
+```
+
+Now try this:
+```{r}
+c.1 <- 5
+c.1
+```
+
+```{r}
+a <- 'RStudio'	# quotation marks make character variables
+a.3 <- as.character(5)	# this is another way to make the character variable type
+
+a
+a.3
+```
+
+### Boolean Variables
+Boolean or logical variables only have true and false options. Computers see “true” as 1 and “false” as 0. Create a logical variable (boolean value) then look at the Environment section to look at the variable type.
+```{r}
+a.5 <- TRUE
+a.6 <- c(TRUE, FALSE, FALSE, TRUE)
+
+a.5
+a.6
+```
+
+You can find out the data type with different native R functions: class() and str()
+```{r}
+class(a.5); str(a.6)
+```
+
+### Functions
+We have been using functions to ask R questions and to give it tasks. The functions we have used so far are:
+```{r}
+c()
+is.character(a) # checks if variable a is a character
+as.character(a) # states that variable a is a character
+as.character(5) # states that value 5 is a character == '5'
+
+is.numeric(a) # same for integers
+is.logical(a) # same for boolean
+
+is.data.frame(a) # same for data types (dataframe, vector)
+```
+
+Functions have a function name (c, as.character, is.numeric etc). The function name is followed by curved brackets:() Functions always have these brackets, even if there’s nothing inside. The area inside the brackets can be used to give the function information
+```{r}
+as.character(5)
+```
+
+Here we are giving the function as.character() the information: 5. 
+This means that it checks whether 5 is a character. If we wanted to store the result that the function gives us, we can make the answer into a stored variable like this:
+```{r}
+b <- as.character(5)
+b
+```
+
+Q1 --> What variable type would b be, and what would its value be? 
+
+## Data Types
+- **vector**  – A collection of elements of same class (d = 1)
+
+- matrix  – All columns must uniformly contain only one variable type (d = 2).
+
+- array - Hold objects of only one variable type (d > 2)
+
+- **data.frame**  – The columns can contain different classes (d = 2).
+
+- list  – Can hold objects of different classes and lengths (d > 2)
+
+Note: We are focusing in this workshop on vectors and data.frames.
+
+### Vectors
+The function: **c()** creates a vector by combining values into a common type ie. a sequence of data points of the same type:
+```{r}
+b <- c(1,3,5,7,9)
+b
+```
+
+Now try this: what happens?
+```{r}
+c <- c(4,3,'5',7)	
+c
+```
+
+There are many functions with equal or similar outcome eg. sequence() or range()
+```{r}
+b.2 <- sequence(12)
+b.2
+```
+
+With an operator: ':' = range
+```{r}
+b.1 <- 1:12
+b.1
+```
+
+There are also questions you can ask R that will give boolean answers. Ask R whether a is a numeric (non-character) variable:
+```{r}
+is.numeric(a)
+```
+
+A: a is a boolean variable, not a numeric variable. Even though the computer sees true as 1 and false as 0, it can tell that you made a boolean variable because you typed TRUE and FALSE when you created it. 
+
+Now try these questions:
+```{r}
+is.logical(a); is.character(a)
+```
+
+### Data Frames
+The data frame structure is used in most applications of R. The data.frame() function makes data frames out of your data. A data frame is like a table: it stores your data neatly. 
+```{r}
+# Create three vectors: a, b, c.
+# (Reminder: a vector is a sequence of data that has the same variable type)
+
+a <- c(1,2,3,4,10,11,12)
+b <- c(5,6,7,8,13,14,15)
+c <- c('yes','no','no','yes','no','yes','yes')
+```
+
+Combine these vectors to make and store a data frame called myData (or call it something else if you want!)
+```{r}
+myData <- data.frame(a,b,c) #outputs a dataframe (3 x 7).
+myData
+```
+```{r}
+# Now run this function:
+head(myData, 3)
+```
+
+#### Columns
+Data frames use the **[ROW, COLUMN]** access structure:
+
+**Example 1**: To access the element in the 4th row, 2nd column of the data frame:
+```{r}
+myData[4,2]
+```
+
+To access a whole **column** of the dataframe **by name**, use the operator '$'. This allows you to find information by name. To access a whole column **by index** (order) use the '[]' operators.
+
+**Example 2**: Let’s find all the values with column name a:
+```{r}
+myData$a # Selects the first column by name (or rather column 'a' when index unknown)
+myData[,1] # Access first column by index
+```
+
+#### Rows
+Reminder: Data frames use the **[ROW, COLUMN]** access structure. Rows can also be accessed with the [row,] operator:
+```{r}
+myData[1,] # Access first row by index
+```
+**Example 5**: What about creating a subset? Selecting several rows and columns?
+```{r}
+myData[1:2, 2:3] # Selects 1st and 2nd rows so as 2nd and 3rd columns
+```
+
+## Basic Operations 
+Before jumping to the practical exercises lets review some the key operations necesary to handle data:
+### What is a R package and how to install them?
+R is really useful because of its packages (almost 5k)
+
+*What’s a package?*
+A package is some code that someone else has taken the time to perfect. Each package is usually useful for one particular application. For example, there is a package called 'dplyr' that is useful for data sorting and filtering
+
+### Getting Help
+The easiest way to get help in R is using the '?' operator or looking at the Help tab in the RStudio GUI. Just append a '?' before the name of a function you want to get help, R will open find information about the function from the set of installed packages. If you want to search for it outside the installed packages, use '??' before the function name. '??' can also help search for partial and incomplete terms:
+```{r}
+help(merge) # get help page for 'merge'
+?merge # lookup 'merge' from installed packages
+??merge # vague search
+example(merge)  # show code examples
+```
+
+### What is a working directory and how to set up one?
+
+A working directory is the reference directory from which R has direct access to read in files. 
+```{r}
+getwd()  # gets the working directory
+setwd(dirname)  # set the working directory to dirname
+```
+
+### How to import and export data?
+The most common way to bring in data to R is through .csv files either with a command or with the GUI. There are packages to import data from excel files (.xlsx) and databases, but that will not be covered here.
+```{r}
+myData <- read.csv ('myInputData.csv', header=FALSE)  # imports csv file. Many options possible
+write.csv (myData, 'output.csv')  # export dataframe to a csv
+```
+
+### How to view and delete objects in your console?
+
+As you create new variables, by default they get store in what is called a global environment. This is the default place will R will store all objects that you create. You can place as many objects as your computer memory will allow it to hold and also create so called containers however this will not be covered today.
+Variables are updated if a new value is assigned to them. 
+```{r}
+ls()  # list objects in global env
+```
+
+```{r}
+rm(a)  # delete the object 'a'
+ls()  # list objects in global env
+```
+
+```{r}
+rm(list = ls())  # caution: delete all objects in .GlobalEnv
+gc()  # free system memory
+```
+
+
+# Part 2: Exercises - Introductory R Hands-On Workshop
+
+## Step 1: Create a new script
+Create a new script: *File -> New file -> R Script*
+
+## Step 2: Set the working directory
+You can import data into R from lots of different file types. You can also import it from any location.
+Today we're going to import the data from a file you have on your computer.
+
+1. The file is called '[diamonds.csv](https://github.com/rladiesmiami/Meetups/tree/master/Intro_Workshop_8.23)'. You should have downloaded it (if not, time to download now).
+
+- Lookup this [link](https://www.kaggle.com/shivam2503/diamonds) for a short documentation: https://www.kaggle.com/shivam2503/diamonds
+
+2. Find out where your [diamonds.csv](https://github.com/rladiesmiami/Meetups/tree/master/Intro_Workshop_8.23) file is. (Probably in your /Downloads/ folder).
+
+3. Check where Rstudio looks to find new data.
+
+4. 'Working directory' is the name that Rstudio uses for the place its data is stored. To find out, enter this line (get working directory):
+```{r}
+getwd()
+```
+
+This function asks Rstudio to tell you where the current working directory is. This is probably not set to your Downloads folder at the moment. To set it to your Downloads folder, type:
+```{r}
+setwd("~/Documents/GitHub/meetup_presentations_miami/20170823_intro_workshop/") # The ~ fills in all the other file location information automatically
+```
+
+Now enter this line again to doublecheck that you’re in the same location as your diamonds.csv file:
+```{r}
+getwd()
+```
+
+## Step 3: Data Import and exploration:
+
+1. Load your data
+
+2. Read data set using a function that loads csv files (read.csv())
+```{r}
+library(readr)
+diamonds <- read_csv("~/Documents/GitHub/meetup_presentations_miami/20170823_intro_workshop/diamonds.csv") # loading and reading data. Dataset consists of the price and quality information for 54,000 diamonds
+```
+
+Use head() to have a quick look at the first few rows of the dataset, type:
+```{r}
+head(diamonds)
+```
+
+To see how RStudio stores the diamonds data set, print the structure:
+```{r}
+str(diamonds)
+```
+
+Another helpful function is 'summary()'. Different handling according to variable type:
+```{r}
+summary(diamonds)
+```
+Exercises:
+
+- Q2: How many variables and observations does the data contain?
+
+- Q3: What types of variables does the data contain?
+
+- Q4: Select the carat column of the diamon dataframe
+
+- Q5: Identify all variables type factor and transform them if necessary
+
+## Step 4: Visualize your data
+We want to make beautiful graphs, and to be able to customise them easily. A great package for this is ggplot2. To get some documentation on this package type ?ggplot2.
+
+Exercises:
+
+- Install and load the ggplot library:
+
+```{r}
+install.packages("ggplot2") # install package
+library(ggplot2) # load package 
+```
+
+#### Data Visualization with ggplot(): Scatterplot
+The package ggplot2 includes a function called ggplot(). We use the ggplot() function to create graphs using our data. Let’s see how diamond price changes due to carat.
+
+```{r}
+ggplot(data = diamonds, 
+       aes(x = carat, y = price)) + geom_point()
+```
+
+Let's deconstruct this command:
+
+- `ggplot` – function that creates the basic ggplot graph
+
+- `data` - the data frame that you want to use 
+
+- `aes` – short for aesthetic, describes how your variables are graphed
+
+- `geom` – the functions that tell ggplot how you want the data presented (scatter plot, histogram etc)
+
+Lets add some colors according to the cut:
+```{r}
+ggplot(data = diamonds, 
+       aes(x = carat, 
+           y = price, 
+           color = cut)) + geom_point()
+```
+
+Let’s make it more readable:  
+```{r}
+ggplot(data = diamonds, aes(x = carat, y = price, color = cut)) + geom_point() +
+ facet_wrap(~cut) + ggtitle("Diamonds price vs carat")
+```
+
+#### Data Visualization with ggplot(): Histogram
+Lets explore the price range of diamonds:
+```{r}
+ggplot(data = diamonds, aes(x = price)) + geom_histogram()
+```
+
+Let’s make it better!
+```{r}
+ggplot(data = diamonds, aes(x = price)) + 
+geom_histogram(binwidth = 500, col = "black", fill = "lightyellow") +
+ggtitle("Histogram of diamond prices") +
+xlab("price, $")
+```
+
+*Try by yourself:*
+1. Experiment with the binwidth value.
+2. Use scale_x_continuous() to see what happens:
+```{r}
+ggplot(data = diamonds, aes(x = price)) + 
+geom_histogram(binwidth = 500, col = "black", fill = "lightyellow") +
+scale_x_continuous(limits = c(0,5000))+ 
+ggtitle("Histogram of diamond prices")+
+xlab("price, $")
+```
+
+Q5 --> What does this histogram tell you?
+
+#### Data Visualization with ggplot(): Boxplot
+Let's explore some boxplots:
+```{r}
+ggplot(data = diamonds, 
+       aes(x = cut, y = price)) + geom_boxplot()
+```
+
+```{r}
+ggplot(data = diamonds, aes(x = cut, y = price)) + 
+geom_boxplot(color = "#1F3552", fill = "#4271AE", alpha = 0.7, outlier.shape = 1)+ theme_classic()+ scale_y_continuous(name = "diamond price, $", breaks = seq(0, 20000, 2500),limits=c(0, 20000)) + scale_x_discrete(name = "diamond cut") + ggtitle("Boxplot of diamond price by cut")
+```
+
+# Resources & References:
+- Stack Overflow: https://stackoverflow.com/documentation/r/topics
+
+- Free Udacity ‘Data Analysis with R’ course: https://www.udacity.com/course/data-analysis-with-r--ud651
+
+- Free Coursera ‘R Programming’ course: https://www.coursera.org/learn/r-programming
+
+- R for Data Science by G.Grolemund and H. Wickham: http://r4ds.had.co.nz/index.html
+
+
+
+
+
